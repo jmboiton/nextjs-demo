@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
-    "kamikillerto.vscode-colorize"
+    "kamikillerto.vscode-colorize",
+    "vitest.explorer"
   ]
 }
