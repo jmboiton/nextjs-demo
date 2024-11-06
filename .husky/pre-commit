@@ -1,2 +1,1 @@
-# pnpm test
-echo "tests comming soon..."
+pnpm test run
