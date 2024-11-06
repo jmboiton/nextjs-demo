@@ -1,0 +1,20 @@
+{
+  "consents": [
+    {
+      "id": 1,
+      "name": "newsletter",
+      "label": "Receive newsletter"
+    },
+    {
+      "id": 2,
+      "name": "ads",
+      "label": "Be shown targeted ads"
+    },
+    {
+      "id": 3,
+      "name": "statistics",
+      "label": "Contribute to anonoymous visit statistics"
+    }
+  ],
+  "users": []
+}
