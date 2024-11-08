@@ -12,10 +12,10 @@ function GiveConsentForm() {
     <form action={saveConsentAction}>
       <Stack spacing={2}>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 6 }}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <TextField fullWidth label="Name" name="name" />
           </Grid>
-          <Grid size={{ xs: 6 }}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <TextField fullWidth label="Email" type="email" name="email" />
           </Grid>
         </Grid>
