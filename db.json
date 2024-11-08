@@ -1,5 +1,5 @@
 {
-  "consents": [
+  "consents-catalog": [
     {
       "id": 1,
       "name": "newsletter",
@@ -16,5 +16,5 @@
       "label": "Contribute to anonoymous visit statistics"
     }
   ],
-  "users": []
+  "consents": []
 }

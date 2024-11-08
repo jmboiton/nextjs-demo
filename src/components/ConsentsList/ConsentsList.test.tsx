@@ -19,10 +19,16 @@ vi.mock("@/lib/api/getConsentsCatalog", () => {
   };
 });
 
-test("ConentList", async () => {
-  expect.hasAssertions();
-  render(await ConsentsList());
+describe("ConsentList", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
-  expect(screen.getByText("Receive newsletter")).toBeDefined();
-  expect(screen.getByText("Be shown targeted ads")).toBeDefined();
+  test("should display the labels of each consent", async () => {
+    expect.hasAssertions();
+    render(await ConsentsList());
+
+    expect(screen.getByText("Receive newsletter")).toBeDefined();
+    expect(screen.getByText("Be shown targeted ads")).toBeDefined();
+  });
 });

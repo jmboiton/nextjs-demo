@@ -11,20 +11,21 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:api": "json-server --watch db.json --port 3001",
+    "dev:all": "concurrently \"pnpm dev\" \"pnpm dev:api\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "test:coverage:ui": "vitest --coverage --ui",
-    "dev:api": "json-server --watch db.json --port 3001",
-    "dev:all": "concurrently \"pnpm dev\" \"pnpm dev:api\""
+    "test:coverage:ui": "vitest --coverage --ui"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.6",
     "@mui/material": "^6.1.6",
     "@mui/material-nextjs": "^6.1.6",
     "@next/env": "^15.0.2",

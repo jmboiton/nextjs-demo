@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import ConsentsList from "@/components/ConsentsList/ConsentsList";
+import GiveConsentForm from "@/components/GiveConsentForm/GiveConsentForm";
 
 export default function GiveConsent() {
   return (
@@ -9,8 +9,7 @@ export default function GiveConsent() {
       <main>
         <Box sx={{ p: 3 }}>
           <Typography variant="h1">Give Consent</Typography>
-          <Typography>Select a consent from the following list:</Typography>
-          <ConsentsList />
+          <GiveConsentForm />
         </Box>
       </main>
     </div>
