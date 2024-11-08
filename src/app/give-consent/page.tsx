@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 
 import GiveConsentForm from "@/components/GiveConsentForm/GiveConsentForm";
 
-export default function GiveConsent() {
+export default function GiveConsentPage() {
   return (
     <div>
       <main>

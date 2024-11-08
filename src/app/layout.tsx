@@ -1,7 +1,9 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import type { Metadata } from "next";
 
+import SideBar from "@/components/SideBar/SideBar";
 import { nunito } from "@/lib/fonts";
 import theme from "@/lib/theme";
 
@@ -19,7 +21,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={nunito.variable}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <Box sx={{ display: "flex" }}>
+              <SideBar />
+              <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                {children}
+              </Box>
+            </Box>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
