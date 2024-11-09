@@ -2,8 +2,8 @@
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import SettingsIcon from "@mui/icons-material/Settings";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import StorageIcon from "@mui/icons-material/Storage";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
@@ -13,6 +13,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Tooltip from "@mui/material/Tooltip";
 import { CSSObject, styled, Theme, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Link from "next/link";
@@ -57,6 +58,22 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  "& .MuiDrawer-paper": {
+    color: theme.palette.info.contrastText,
+    backgroundColor: theme.palette.info.main,
+  },
+  "& .MuiListItemIcon-root": {
+    color: theme.palette.info.contrastText,
+  },
+  "& .Mui-selected .MuiListItemIcon-root": {
+    color: theme.palette.secondary.main,
+  },
+  "& .MuiDivider-root": {
+    borderColor: theme.palette.info.light,
+  },
+  "& .MuiIconButton-root": {
+    color: theme.palette.info.contrastText,
+  },
   variants: [
     {
       props: ({ open }) => open,
@@ -102,8 +119,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const menuItems = [
-  { text: "Give Consent", icon: <SettingsIcon />, path: "/give-consent" },
-  { text: "Collected Consents", icon: <DashboardIcon />, path: "/consents" },
+  { text: "Give Consent", icon: <PersonAddAlt1Icon />, path: "/give-consent" },
+  { text: "Collected Consents", icon: <StorageIcon />, path: "/consents" },
 ];
 
 function SideBar() {
@@ -166,7 +183,9 @@ function SideBar() {
                   },
                 }}
               >
-                <ListItemIcon>{item.icon}</ListItemIcon>
+                <Tooltip title={item.text}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                </Tooltip>
                 <ListItemText primary={item.text} />
               </ListItemButton>
             </ListItem>

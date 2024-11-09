@@ -24,7 +24,10 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <Box sx={{ display: "flex" }}>
               <SideBar />
-              <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <Box
+                component="main"
+                sx={{ flexGrow: 1, p: 3, overflowX: "auto" }}
+              >
                 {children}
               </Box>
             </Box>

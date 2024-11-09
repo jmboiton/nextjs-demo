@@ -31,6 +31,12 @@ const theme = createTheme({
       dark: "#c88719",
       contrastText: "#000000",
     },
+    info: {
+      main: "#2e3f50",
+      light: "#4f6e91",
+      dark: "#10161c",
+      contrastText: "#ffffff",
+    },
     background: {
       default: "#f5f5f5",
       paper: "#ffffff",
@@ -69,4 +75,32 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+const themeComposition = createTheme(theme, {
+  components: {
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          "&:nth-of-type(even)": {
+            backgroundColor: theme.palette.action.hover,
+          },
+          "&:last-child td": { border: 0 },
+          "&.MuiTableRow-head": {
+            backgroundColor: theme.palette.grey[300],
+          },
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          "&.MuiTableCell-head": {
+            fontWeight: 700,
+            borderBottom: `1px solid ${theme.palette.grey[400]}`,
+          },
+        },
+      },
+    },
+  },
+});
+
+export default themeComposition;

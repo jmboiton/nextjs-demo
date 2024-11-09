@@ -1,14 +1,15 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import ConsentsTable from "@/components/ConsentsTable/ConsentsTable";
+
 export default function ConsentsPage() {
   return (
-    <div>
-      <main>
-        <Box sx={{ p: 3 }}>
-          <Typography variant="h1">Collected Consents</Typography>
-        </Box>
-      </main>
-    </div>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h1" gutterBottom>
+        Collected Consents
+      </Typography>
+      <ConsentsTable />
+    </Box>
   );
 }
