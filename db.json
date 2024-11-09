@@ -16,5 +16,58 @@
       "label": "Contribute to anonoymous visit statistics"
     }
   ],
-  "consents": []
+  "consents": [
+    {
+      "name": "Juan",
+      "email": "juan@domain.com",
+      "consents": [
+        "newsletter"
+      ],
+      "id": 1
+    },
+    {
+      "name": "Peter",
+      "email": "peter@domain.com",
+      "consents": [
+        "ads",
+        "statistics"
+      ],
+      "id": 2
+    },
+    {
+      "name": "Mark",
+      "email": "mark@domain.com",
+      "consents": [
+        "statistics"
+      ],
+      "id": 3
+    },
+    {
+      "name": "Edd",
+      "email": "edd@domain.com",
+      "consents": [
+        "newsletter",
+        "ads",
+        "statistics"
+      ],
+      "id": 4
+    },
+    {
+      "name": "Karl",
+      "email": "karl@domian.com",
+      "consents": [
+        "newsletter",
+        "ads"
+      ],
+      "id": 5
+    },
+    {
+      "name": "Mary",
+      "email": "mary@domain.com",
+      "consents": [
+        "ads"
+      ],
+      "id": 6
+    }
+  ]
 }
