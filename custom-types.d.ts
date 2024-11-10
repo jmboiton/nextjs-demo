@@ -14,6 +14,10 @@ export type Consent = {
   consents: ConsentName[];
 };
 
+export type ConsentWithId = Consent & {
+  id: number;
+};
+
 type TypedFormDataValue = FormDataEntryValue | Blob;
 
 /**

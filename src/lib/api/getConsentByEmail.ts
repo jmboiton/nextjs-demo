@@ -1,7 +1,7 @@
-import { Consent } from "@/custom-types/";
+import { ConsentWithId } from "@/custom-types/";
 import { API_DOMAIN } from "@/lib/constants";
 
-async function getConsentByEmail(email: string): Promise<Consent> {
+async function getConsentByEmail(email: string): Promise<ConsentWithId[]> {
   const response = await fetch(`${API_DOMAIN}/consents?email=${email}`);
 
   if (!response.ok) {

@@ -5,8 +5,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
-import saveConsentAction from "../../actions/saveConsentAction";
-import ConsentsList from "../ConsentsList/ConsentsList";
+import saveConsentAction from "@/actions/saveConsentAction";
+import ConsentsList from "@/components/ConsentsList/ConsentsList";
 
 function GiveConsentForm() {
   return (
