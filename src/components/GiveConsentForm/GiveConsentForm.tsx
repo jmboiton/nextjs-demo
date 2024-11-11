@@ -1,88 +1,99 @@
 "use client";
 
-import ApprovalIcon from "@mui/icons-material/Approval";
-import Button from "@mui/material/Button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import React, { useState } from "react";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 
 import saveConsentAction from "@/actions/saveConsentAction";
 import ConsentsList from "@/components/ConsentsList/ConsentsList";
 import { ConsentCatalog } from "@/custom-types/";
+import { formSchema, FormSchemaData } from "@/lib/formSchema";
+
+import SubmitButton from "../SubmitButton/SubmitButton";
 
 function GiveConsentForm({
   consentsCatalog,
 }: Readonly<{
   consentsCatalog: ConsentCatalog;
 }>) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [consents, setConsents] = useState<string[]>([]);
-  const isSubmitDisabled = consents.length === 0;
+  const formMethods = useForm<FormSchemaData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      consents: [],
+    },
+  });
 
-  function handleConsentOptionChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) {
-    const value = event.target.value;
-    if (event.target.checked) {
-      setConsents([...consents, value]);
-    } else {
-      setConsents(consents.filter((item) => item != value));
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = formMethods;
+
+  async function onFormSubmit(data: FormSchemaData) {
+    const result = await saveConsentAction(data);
+
+    if (!result.success) {
+      Object.entries(result.errors).forEach(([key, value]) => {
+        setError(key as keyof FormSchemaData, {
+          type: "manual",
+          message: value[0],
+        });
+      });
     }
   }
 
-  /* async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    console.log({name, email, consents})
-  } */
-
   return (
     <Paper sx={{ p: 3, maxWidth: 900 }}>
-      <form action={saveConsentAction}>
-        <Stack spacing={2}>
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField
-                required
-                fullWidth
-                label="Name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onFormSubmit)}>
+          <Stack spacing={2}>
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Name"
+                      error={!!errors.name}
+                      helperText={errors.name?.message}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Email"
+                      error={!!errors.email}
+                      helperText={errors.email?.message}
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField
-                required
-                fullWidth
-                label="Email"
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Grid>
-          </Grid>
 
-          <ConsentsList
-            consentsCatalog={consentsCatalog}
-            consentsChecked={consents}
-            handleChange={handleConsentOptionChange}
-          />
+            <ConsentsList consentsCatalog={consentsCatalog} />
 
-          <div>
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={isSubmitDisabled}
-              endIcon={<ApprovalIcon />}
-            >
-              Give Consent
-            </Button>
-          </div>
-        </Stack>
-      </form>
+            <div>
+              <SubmitButton />
+            </div>
+          </Stack>
+        </form>
+      </FormProvider>
     </Paper>
   );
 }

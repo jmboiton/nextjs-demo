@@ -1,4 +1,6 @@
 import { render, screen } from "@testing-library/react";
+import type { ReactNode } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { ConsentCatalog } from "@/custom-types/";
 
@@ -17,16 +19,24 @@ const demoConsentsCatalog = [
   },
 ] as ConsentCatalog;
 
+function FormWrapper({ children }: { children: ReactNode }) {
+  const methods = useForm({
+    defaultValues: {
+      consents: [],
+    },
+  });
+
+  return <FormProvider {...methods}>{children}</FormProvider>;
+}
+
 describe("ConsentList", () => {
   test("should display the labels of each consent", async () => {
     expect.hasAssertions();
 
     render(
-      <ConsentsList
-        consentsCatalog={demoConsentsCatalog}
-        consentsChecked={[]}
-        handleChange={() => {}}
-      />,
+      <FormWrapper>
+        <ConsentsList consentsCatalog={demoConsentsCatalog} />
+      </FormWrapper>,
     );
 
     expect(screen.getByText("Receive newsletter")).toBeDefined();
