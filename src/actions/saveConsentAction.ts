@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 import type { Consent, TypedFormData } from "@/custom-types/";
 import getConsentByEmail from "@/lib/api/getConsentByEmail";
 import patchConsent from "@/lib/api/patchConsent";
@@ -27,10 +29,12 @@ async function saveConsentAction(data: FormData) {
   };
 
   if (currentConsent) {
-    return await patchConsent(newConsent, currentConsent.id);
+    await patchConsent(newConsent, currentConsent.id);
+  } else {
+    await postConsent(newConsent);
   }
 
-  return await postConsent(newConsent);
+  redirect("/consents");
 }
 
 export default saveConsentAction;

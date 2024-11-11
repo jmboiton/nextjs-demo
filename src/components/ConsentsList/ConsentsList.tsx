@@ -4,11 +4,20 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import FormLabel from "@mui/material/FormLabel";
 
-import getConsentsCatalog from "@/lib/api/getConsentsCatalog";
+import type { ConsentCatalog } from "@/custom-types/";
 
-async function ConsentsList() {
-  const consentsCatalog = await getConsentsCatalog();
-
+function ConsentsList({
+  consentsChecked,
+  consentsCatalog,
+  handleChange,
+}: {
+  consentsChecked: string[];
+  consentsCatalog: ConsentCatalog;
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean,
+  ) => void;
+}) {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">I agree to:</FormLabel>
@@ -16,7 +25,13 @@ async function ConsentsList() {
         {consentsCatalog.map((c) => (
           <FormControlLabel
             key={c.id}
-            control={<Checkbox name="consents" />}
+            control={
+              <Checkbox
+                name="consents"
+                onChange={handleChange}
+                checked={consentsChecked.includes(c.name)}
+              />
+            }
             label={c.label}
             value={c.name}
           />
