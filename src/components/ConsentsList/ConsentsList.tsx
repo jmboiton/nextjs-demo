@@ -1,26 +1,69 @@
+import { FormHelperText } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import FormLabel from "@mui/material/FormLabel";
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from "react-hook-form";
 
-import getConsentsCatalog from "@/lib/api/getConsentsCatalog";
+import type { ConsentCatalog, ConsentName } from "@/custom-types/";
+import { FormSchemaData } from "@/lib/formSchema";
 
-async function ConsentsList() {
-  const consentsCatalog = await getConsentsCatalog();
+function ConsentsList({
+  consentsCatalog,
+}: Readonly<{
+  consentsCatalog: ConsentCatalog;
+}>) {
+  const {
+    formState: { errors },
+    control,
+  } = useFormContext<FormSchemaData>();
+
+  function handleChange(
+    field: ControllerRenderProps<FormSchemaData, "consents">,
+    optionValue: ConsentName,
+  ) {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      const updateConsents = event.target.checked
+        ? [...field.value, optionValue]
+        : field.value.filter((item) => item !== optionValue);
+
+      field.onChange(updateConsents);
+    };
+  }
 
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">I agree to:</FormLabel>
       <FormGroup>
-        {consentsCatalog.map((c) => (
-          <FormControlLabel
-            key={c.id}
-            control={<Checkbox name="consents" />}
-            label={c.label}
-            value={c.name}
-          />
-        ))}
+        <Controller
+          name="consents"
+          control={control}
+          render={({ field }) => (
+            <>
+              {consentsCatalog.map((option) => (
+                <FormControlLabel
+                  key={option.id}
+                  control={
+                    <Checkbox
+                      checked={field.value.includes(option.name)}
+                      onChange={handleChange(field, option.name)}
+                    />
+                  }
+                  label={option.label}
+                  value={option.name}
+                />
+              ))}
+              {errors.consents && (
+                <FormHelperText error>{errors.consents.message}</FormHelperText>
+              )}
+            </>
+          )}
+        />
       </FormGroup>
     </FormControl>
   );
