@@ -19,7 +19,7 @@ const demoConsentsCatalog = [
   },
 ] as ConsentCatalog;
 
-function FormWrapper({ children }: { children: ReactNode }) {
+function FormWrapper({ children }: Readonly<{ children: ReactNode }>) {
   const methods = useForm({
     defaultValues: {
       consents: [],

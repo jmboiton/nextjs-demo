@@ -10,6 +10,7 @@ loadEnvConfig(projectDir);
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
+    setupFiles: ["./vitest-setup.ts"],
     environment: "jsdom",
     globals: true,
     exclude: [...configDefaults.exclude, "**/{commitlint,next}.config.*"],
